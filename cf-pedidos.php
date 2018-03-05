@@ -192,7 +192,7 @@ function cf_pedidos_script() {
 	<script>
 		(function($) {
 			$(window).load(function(){
-				$( '.widget_shopping_cart .button.checkout.wc-forward' ).text( '<?php echo __( 'Finalizar orçamento!', 'cf-pedidos' ); ?>' );
+				$( '.widget_shopping_cart .button.checkout.wc-forward' ).text( '<?php echo __( 'Finalizar orçamento', 'cf-pedidos' ); ?>' );
 			}); // $(window).load
 			$(document).ready(function(){
 				$( '#order_review_heading' ).text( '<?php echo __( 'Seu orçamento', 'cf-pedidos' ); ?>' );				

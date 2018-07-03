@@ -1,12 +1,28 @@
 <?php
 
-function exibe_precos() {
+function exibe_precos_geral() {
 	$exibir_precos = cf_pedidos_get_option( 'exibir_precos' ) == 'on' ? true : false;
 	return $exibir_precos;
 }
 
+function exibe_preco_individual() {
+	global $post;
+	$exibe_preco = null;
+	if( $post->post_type == 'product' ) :
+		$exibe_preco = get_post_meta( $post->ID, 'product_settings_show_price', true );
+		$exibe_preco = $exibe_preco == 'on' ? true : false;
+	endif;
+	return $exibe_preco;
+}
+
+function exibe_precos() {
+	$exibe_preco = exibe_precos_geral() || exibe_preco_individual() ? true : false;
+	return $exibe_preco;
+}
+
 // Executa as funções depois que o WP carregou mas antes dos Headers
 // Garante que as funções sobreponham o Tema
+// Os preços no carrinho sempre ficarão escondidos para evitar de mostrar preço de produtos que não devem ter o preço exibido
 add_action( 'init', 'cf_pedidos_override_theme' );
 
 function cf_pedidos_override_theme() {
@@ -24,6 +40,15 @@ function cf_pedidos_continue_shopping() {
 	include 'woocommerce/cart/continue-shopping.php';
 }
 
+add_filter('woocommerce_get_price_html', 'hide_prices');
+
+function hide_prices($price){
+	// debug( exibe_precos_geral() );
+	// debug( exibe_preco_individual() );
+	$price = exibe_precos() ? $price : null;
+	return $price;
+}
+
 
 // Executa as funções depois que os plugins são carregados
 // Garante que as funções sobreponham o Woocommerce
@@ -31,24 +56,13 @@ add_action('plugins_loaded','wc_pedidos_override_plugins');
 
 function wc_pedidos_override_plugins() {
 
-	// Esconde os preços
-	add_action('after_setup_theme','activate_filter');
+	// if( !exibe_preco_individual() ) :
 
-	function activate_filter(){
-		// Verifica se os preços devem ser exibidos
-		if( !exibe_precos() ) :
-			add_filter('woocommerce_get_price_html', 'hide_prices');
-		endif;
-	}
+		// remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+		// remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
 
-	function hide_prices($price){
-		// Verifica se os preços devem ser exibidos
-// debug( exibe_precos() );
-		if( !exibe_precos() ) :
-			remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
-			remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
-		endif;
-	}
+	// endif;
+
 
 	// Esconde o preço na Minha Conta
 	add_filter( 'woocommerce_account_orders_columns', 'filter_woocommerce_account_orders_columns', 10, 1 ); 
@@ -122,7 +136,7 @@ function wc_pedidos_override_plugins() {
             esc_attr( 'primary' ), // Button color
             esc_attr( get_theme_mod('add_to_cart_style', 'outline') ), // Button style
             esc_attr( 'small' ), // Button size
-            esc_html( __( 'Solicitar orçamento', 'cf-pedidos' ) )
+            esc_html( __( 'Faça uma cotação', 'cf-pedidos' ) )
         );
 	    return $btn; 
 	};

@@ -21,7 +21,7 @@
     	   <span class="divider hide-for-small"><?php echo get_flatsome_icon('icon-angle-right');?></span>
     	   <a href="<?php echo $woocommerce->cart->get_checkout_url(); ?>" class="<?php echo flatsome_checkout_breadcrumb_class('checkout') ?>"><?php _e('Detalhes do orçamento', 'cf-pedidos'); ?></a>
     	   <span class="divider hide-for-small"><?php echo get_flatsome_icon('icon-angle-right');?></span>
-    	   <a href="#" class="no-click <?php echo flatsome_checkout_breadcrumb_class('order-received'); ?>"><?php _e('Order Complete', 'flatsome'); ?></a>
+    	   <a href="#" class="no-click <?php echo flatsome_checkout_breadcrumb_class('order-received'); ?>"><?php _e('Orçamento Completo', 'cf-pedidos'); ?></a>
 		 </nav>
 	  </div><!-- .flex-left -->
 	</div><!-- flex-row -->

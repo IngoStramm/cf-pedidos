@@ -37,7 +37,7 @@ $text_align = is_rtl() ? 'right' : 'left';
 						<?php echo esc_html( $order->get_billing_email() ); ?>
 					<?php endif; ?>
 					<?php if ( $order->get_billing_company() ): ?>
-						<br/><?php _e( 'Empresa', 'quadrimark' ); ?>: <?php echo esc_html( $order->get_billing_company() ); ?>
+						<br/><?php _e( 'Empresa', 'cf-pedidos' ); ?>: <?php echo esc_html( $order->get_billing_company() ); ?>
 					<?php endif; ?>
 				</p>
 			</address>

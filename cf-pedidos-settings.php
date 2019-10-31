@@ -29,7 +29,7 @@ function cf_pedidos_register_theme_options_metabox() {
 		// 'icon_url'        => 'dashicons-palmtree', // Menu icon. Only applicable if 'parent_slug' is left empty.
 		// 'menu_title'      => esc_html__( 'Options', 'cf_pedidos' ), // Falls back to 'title' (above).
 		// 'parent_slug'     => 'themes.php', // Make options page a submenu item of the themes menu.
-		'capability'      => 'manage_options', // Cap required to view options-page.
+		'capability'      => 'edit_others_posts', // Cap required to view options-page.
 		// 'position'        => 1, // Menu position. Only applicable if 'parent_slug' is left empty.
 		// 'admin_menu_hook' => 'network_admin_menu', // 'network_admin_menu' to add network-level options page.
 		// 'display_cb'      => false, // Override the options-page form output (CMB2_Hookup::options_page_output()).

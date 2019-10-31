@@ -4,7 +4,7 @@
 * Plugin URI: https://convertefacil.com.br/
 * Text Domain: cf-pedidos
 * Description: Transforma a Loja ConverteFácil em uma plataforma de pedidos online.
-* Version: 1.2
+* Version: 1.3
 * Author: Ingo Stramm
 * Author URI: https://convertefacil.com.br/
 * License: Parte integrante do sistema ConverteFácil, não pode ser comercializado separadamente.

@@ -25,9 +25,9 @@ function yourprefix_register_demo_metabox() {
 	) );
 
 	$cmb->add_field( array(
-		'name' => esc_html__( 'Deixe a opção abaixo selecionada para exibir o preço do produto.', 'cmb2' ),
-		'desc' => esc_html__( 'Exibir o preço.', 'cmb2' ),
-		'id'   => $prefix . 'show_price',
+		'name' => esc_html__( 'Inverter a lógica de exibição de preço do produto.', 'cmb2' ),
+		'desc' => esc_html__('Se ativada, esta opção irá inverter a lógica de exibição de preço especificamente deste produto. Por ex: se nas "Opções de Pedidos" estiver selecionado para "Exibir preços", ao ativar esta opção, os preços deste produto não serão exibidos.', 'cmb2' ),
+		'id'   => $prefix . 'reverse_logic',
 		'type' => 'checkbox',
 	) );
 }

@@ -5,18 +5,19 @@ function exibe_precos_geral() {
 	return $exibir_precos;
 }
 
-function exibe_preco_individual() {
+function inverte_logica_exibicao_preco() {
 	global $post;
-	$exibe_preco = null;
+	$inverte_logica = null;
 	if( $post->post_type == 'product' ) :
-		$exibe_preco = get_post_meta( $post->ID, 'product_settings_show_price', true );
-		$exibe_preco = $exibe_preco == 'on' ? true : false;
+		$inverte_logica = get_post_meta( $post->ID, 'product_settings_reverse_logic', true );
+		$inverte_logica = $inverte_logica == 'on' ? true : false;
 	endif;
-	return $exibe_preco;
+	return $inverte_logica;
 }
 
 function exibe_precos() {
-	$exibe_preco = exibe_precos_geral() || exibe_preco_individual() ? true : false;
+	$exibe_preco = exibe_precos_geral() ? true : false;
+	$exibe_preco = inverte_logica_exibicao_preco() ? !$exibe_preco : $exibe_preco;
 	return $exibe_preco;
 }
 
@@ -44,7 +45,7 @@ add_filter('woocommerce_get_price_html', 'hide_prices');
 
 function hide_prices($price){
 	// debug( exibe_precos_geral() );
-	// debug( exibe_preco_individual() );
+	// debug( inverte_logica_exibicao_preco() );
 	$price = exibe_precos() ? $price : null;
 	return $price;
 }
@@ -56,7 +57,7 @@ add_action('plugins_loaded','wc_pedidos_override_plugins');
 
 function wc_pedidos_override_plugins() {
 
-	// if( !exibe_preco_individual() ) :
+	// if( !inverte_logica_exibicao_preco() ) :
 
 		// remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 		// remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
